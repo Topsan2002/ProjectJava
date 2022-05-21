@@ -4,12 +4,12 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 
-public class ExReprort {
+public class ExReport {
     private String fileOrder, fileProduct;
     private String date;
     private FileOrder orderFile;
     private DecimalFormat fm2;
-    ExReprort(){
+    ExReport(){
         orderFile = new FileOrder();
         fm2 = new DecimalFormat("#,##0.00");
         setDate(String.valueOf(LocalDate.now()));

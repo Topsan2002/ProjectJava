@@ -13,22 +13,19 @@ import java.awt.event.*;
 
 public class ManageProduct extends JPanel implements ActionListener, DocumentListener, ListSelectionListener {
 
-    JTable  tableProduct, tableOrder;
-    JScrollPane scrollPro, scrollOrder;
-    JTextField textField, idTf, nameTf, amountTf, priceTf, totalTf;
-    JTextField  idETf, nameETf, amountETf, priceETf;
-
-    TableRowSorter<TableModel> sort;
-    TableColumnModel columnModelPro, columnModelOrder;
-    JLabel labelSearch,labelId, labelName, labelPrice, labelAmount, labelTotal, labelTileEdit, labelTitleAdd;
-    JLabel labelEId, labelEName, labelEPrice, labelEAmount;
-
-    JPanel topBar, right, bottom;
-    JButton insetBtn, delBtn, editBtn, cancelBtn;
-    DefaultTableModel modelProduct;
-    JComboBox<String> comCus;
-    Product product;
-    FileProduct file;
+    private JTable  tableProduct;
+    private JScrollPane scrollPro ;
+    private JTextField textField, idTf, nameTf, amountTf, priceTf;
+    private JTextField  idETf, nameETf, amountETf, priceETf;
+    private TableRowSorter<TableModel> sort;
+    private TableColumnModel columnModel;
+    private JLabel labelSearch,labelId, labelName, labelPrice, labelAmount, labelTileEdit, labelTitleAdd;
+    private JLabel labelEId, labelEName, labelEPrice, labelEAmount;
+    private JPanel topBar, right;
+    private JButton insetBtn, delBtn, editBtn, cancelBtn;
+    private DefaultTableModel modelProduct;
+    private Product product;
+    private FileProduct file;
 
     ManageProduct(){
         super(new BorderLayout(),true);
@@ -62,11 +59,11 @@ public class ManageProduct extends JPanel implements ActionListener, DocumentLis
         modelProduct = (DefaultTableModel) tableProduct.getModel();
         refresh();
         //set Width table
-        columnModelPro = tableProduct.getColumnModel();
-        columnModelPro.getColumn(0).setPreferredWidth(150);
-        columnModelPro.getColumn(1).setPreferredWidth(150);
-        columnModelPro.getColumn(2).setPreferredWidth(150);
-        columnModelPro.getColumn(3).setPreferredWidth(150);
+        columnModel = tableProduct.getColumnModel();
+        columnModel.getColumn(0).setPreferredWidth(150);
+        columnModel.getColumn(1).setPreferredWidth(150);
+        columnModel.getColumn(2).setPreferredWidth(150);
+        columnModel.getColumn(3).setPreferredWidth(150);
 
 
         //set for sort data in table
@@ -91,8 +88,8 @@ public class ManageProduct extends JPanel implements ActionListener, DocumentLis
             modelProduct.addRow(new Object[]{productData[i][0],productData[i][1],productData[i][2],productData[i][3]});
         } 
          //set textField is null data
-         resetDataAddProduct();
-         resetDataEditProduct();
+         resetDataAdd();
+         resetDataEdit();
 
     }
 
@@ -204,14 +201,14 @@ public class ManageProduct extends JPanel implements ActionListener, DocumentLis
          right.add(delBtn);
     }
 
-    public void resetDataAddProduct() {
+    public void resetDataAdd() {
         idTf.setText("");
         nameTf.setText("");
         amountTf.setText("");
         priceTf.setText("");
     }
 
-    public void resetDataEditProduct() {
+    public void resetDataEdit() {
         idETf.setText("");
         nameETf.setText("");
         amountETf.setText("");
@@ -244,7 +241,7 @@ public class ManageProduct extends JPanel implements ActionListener, DocumentLis
                     String str = "Insert Product :" + "Success\nName : " + nameTf.getText() +"\n" + "ID : " + id + "\n" + "Amount : " + amount + "\n" + "Price : " + price + "\n";
                     JOptionPane.showMessageDialog(null, str, "Message", JOptionPane.INFORMATION_MESSAGE);
                     //set textField is null data
-                    resetDataAddProduct();
+                    resetDataAdd();
                     //call method for reset data table
                     refresh();
                     }else{  
@@ -285,7 +282,7 @@ public class ManageProduct extends JPanel implements ActionListener, DocumentLis
                     String str = "Delete Product :" + "Success\nName : " + nameETf.getText() +"\n" + "ID : " + id + "\n" + "Amount : " + amount + "\n" + "Price : " + price + "\n";
                     JOptionPane.showMessageDialog(null, str, "Message", JOptionPane.INFORMATION_MESSAGE);
                     //set textField id null
-                   resetDataEditProduct();
+                   resetDataEdit();
                     //call method for reset data table
                     refresh();
                 }
@@ -315,7 +312,7 @@ public class ManageProduct extends JPanel implements ActionListener, DocumentLis
                     String str = "Edit Product :" + "Success\nName : " + nameETf.getText() +"\n" + "ID : " + id + "\n" + "Amount : " + amount + "\n" + "Price : " + price + "\n";
                     JOptionPane.showMessageDialog(null, str, "Message", JOptionPane.INFORMATION_MESSAGE);
                     //set textField Edit is null
-                   resetDataEditProduct();
+                   resetDataEdit();
                     //call method for reset data table
                     refresh();
                 }
@@ -329,7 +326,7 @@ public class ManageProduct extends JPanel implements ActionListener, DocumentLis
         //check button click cancel
         }else if(e.getSource() == cancelBtn){
             //set textField Add is null
-            resetDataAddProduct();
+            resetDataAdd();
         }
         
     }

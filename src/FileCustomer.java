@@ -119,11 +119,11 @@ public class FileCustomer {
     }
 
     
-    public boolean addCustomer(String product){     
+    public boolean addCustomer(String customer){     
       try{
         
         FileWriter fileWriter = new FileWriter(fileCustomer,true);
-        fileWriter.write(product);
+        fileWriter.write(customer);
         fileWriter.close();
         return true;
       }

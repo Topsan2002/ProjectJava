@@ -14,25 +14,26 @@ import java.text.DecimalFormat;
 
 public class Home extends JPanel implements ActionListener, DocumentListener, ListSelectionListener {
 
-    JTable  tableProduct, tableOrder;
-    JScrollPane scrollPro, scrollOrder;
-    JTextField textField, idTf, nameTf, amountTf, priceTf, totalTf, customerNameTf, sallerNameTf;
-    TableRowSorter<TableModel> sort;
-    TableColumnModel columnModelPro, columnModelOrder;
-    JLabel labelSearch,labelId, labelName, labelPrice, labelAmount, labelTotal, labelTile, customerLabel, cusNameLabel;
-    JPanel top, right, bottom;
-    JButton insetBtn, delBtn, conCusBtn, editCusBtn, submitBtn, cancelBtn;
-    DefaultTableModel modelOrder, modelProduct;
-    JComboBox<String> comCus;
-    FileProduct file;
-    DecimalFormat fm2;
-    JLabel sallerLb, sallerNameLb; 
-    JComboBox<String> comSaller;
-    Order order;
-    OrderItem orderItem[];
-    FileOrder fileOrder;
-    FileSaller fileSaller;
-    FileCustomer fileCustomer;
+    private  JTable  tableProduct, tableOrder;
+    private  JScrollPane scrollPro, scrollOrder;
+    private  JTextField textField, idTf, nameTf, amountTf, priceTf, totalTf, customerNameTf, sallerNameTf;
+    private  TableRowSorter<TableModel> sort;
+    private  TableColumnModel columnModelPro, columnModelOrder;
+    private  JLabel labelSearch,labelId, labelName, labelPrice, labelAmount, labelTotal, labelTile, customerLabel, cusNameLabel;
+    private  JPanel top, right;
+    private  JButton insetBtn, delBtn, conCusBtn, editCusBtn, submitBtn, cancelBtn;
+    private  DefaultTableModel modelOrder, modelProduct;
+    private  JComboBox<String> comCus;
+    private  DecimalFormat fm2;
+    private  JLabel sallerLb, sallerNameLb; 
+    private  JComboBox<String> comSaller;
+    private  Order order;
+    private  OrderItem orderItem[];
+    private  FileOrder fileOrder;
+    private  FileSaller fileSaller;
+    private  FileCustomer fileCustomer;
+    private  FileProduct file;
+
     Home(){
         super(new BorderLayout(),true);
         setPreferredSize( new Dimension(1000, 600));
@@ -44,10 +45,7 @@ public class Home extends JPanel implements ActionListener, DocumentListener, Li
         fileCustomer = new FileCustomer();
         setTopBar();
         setRight();
-
         setTableProduct();
-
-       
 
     }
 
@@ -96,7 +94,7 @@ public class Home extends JPanel implements ActionListener, DocumentListener, Li
         columnModelPro.getColumn(0).setPreferredWidth(400);
         columnModelPro.getColumn(1).setPreferredWidth(400);
         columnModelPro.getColumn(2).setPreferredWidth(400);
-        // modelProduct = new
+       
         sort = new TableRowSorter<>(tableProduct.getModel());
         ListSelectionModel cellSelectionModel = tableProduct.getSelectionModel();
         cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -295,7 +293,7 @@ public class Home extends JPanel implements ActionListener, DocumentListener, Li
             comSaller.setEnabled(false);
 
         }else if(e.getSource() == editCusBtn){
-            
+            resetCustomer();
         }else if(e.getSource() == submitBtn){
             
             sendOrder();

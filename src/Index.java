@@ -5,24 +5,21 @@ import java.awt.event.*;
 
 public class Index extends JFrame implements ActionListener   {
     
-    JLabel sallerLb, customerLb, totalLb, amountLb;
-    JTextField sallerTf, customerTf, totalTf, amountTf, title;
-    JTextArea orderTa;
+   
+    private JButton productBtn, sallerBtn, customerBtn, homeBtn, reportBtn, reportProBtn;
+    private JPanel sidebar;
+    private Home home; 
+    private Container c;
+    private ReportOrderDay report;
+    private ReportPorduct reportPro;
+    private ManageCustomer manageCustomer;
+    private ManageProduct manageProduct;
+    private ManageSaller manageSaller;
 
-    JButton cancelBtn, submitBtn, productBtn, sallerBtn, customerBtn, homeBtn, reportBtn, reportProBtn;
-    JPanel sidebar;
-    
-    Home home; 
-    Container c;
-    Report report;
-    ReportPorduct reportPro;
-    ManageCustomer manageCustomer;
-    ManageProduct manageProduct;
-    ManageSaller manageSaller;
     Index(){
         super("Program Project : ");
         setSize(1200,700);
-        title = new JTextField("Program Project");
+        
         c = getContentPane();
         c.setLayout(new BorderLayout());
 
@@ -33,7 +30,7 @@ public class Index extends JFrame implements ActionListener   {
         manageProduct = new ManageProduct();
         manageCustomer = new ManageCustomer();
         manageSaller = new ManageSaller();
-        report = new Report();
+        report = new ReportOrderDay();
         reportPro = new ReportPorduct();
         home = new Home();
 
@@ -73,11 +70,7 @@ public class Index extends JFrame implements ActionListener   {
         sidebar.add(reportProBtn);
     }
 
-    public void setCenter(int num){
-        
-    }
-
-
+   
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == productBtn){

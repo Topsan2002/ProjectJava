@@ -13,22 +13,20 @@ import java.awt.event.*;
 
 public class ManageCustomer extends JPanel implements ActionListener, DocumentListener, ListSelectionListener {
 
-    JTable  tableCustomer;
-    JScrollPane scrollPro, scrollOrder;
-    JTextField textField, idTf, nameTf, phoneTf, emailTf, totalTf;
-    JTextField  idETf, nameETf, phoneETf, emailETf;
+    private JTable  tableCustomer;
+    private JScrollPane scrollPro;
+    private JTextField textField, idTf, nameTf, phoneTf, emailTf;
+    private JTextField  idETf, nameETf, phoneETf, emailETf;
+    private TableRowSorter<TableModel> sort;
+    private TableColumnModel columnModel;
+    private JLabel labelSearch,idLb, nameLb, emailLb, phoneLb, labelTileEdit, labelTitleAdd;
+    private JLabel idELb, labelEName, emailELb, phoneELb;
+    private JPanel topBar, right;
+    private JButton insetBtn, delBtn, editBtn, cancelBtn;
+    private DefaultTableModel modelCustomer;
+    private FileCustomer fileCustomer;
+    private Customer customer;
 
-    TableRowSorter<TableModel> sort;
-    TableColumnModel columnModelPro, columnModelOrder;
-    JLabel labelSearch,idLb, nameLb, emailLb, phoneLb, labelTotal, labelTileEdit, labelTitleAdd;
-    JLabel idELb, labelEName, emailELb, phoneELb;
-
-    JPanel topBar, right, bottom;
-    JButton insetBtn, delBtn, editBtn, cancelBtn;
-    DefaultTableModel modelCustomer;
-    JComboBox<String> comCus;
-    FileCustomer fileCustomer;
-    Customer customer;
     ManageCustomer(){
         super(new BorderLayout(),true);
         setPreferredSize( new Dimension(1000, 600));
@@ -60,11 +58,11 @@ public class ManageCustomer extends JPanel implements ActionListener, DocumentLi
         modelCustomer = (DefaultTableModel) tableCustomer.getModel();
         refresh();
         
-        columnModelPro = tableCustomer.getColumnModel();
-        columnModelPro.getColumn(0).setPreferredWidth(150);
-        columnModelPro.getColumn(1).setPreferredWidth(150);
-        columnModelPro.getColumn(2).setPreferredWidth(150);
-        columnModelPro.getColumn(3).setPreferredWidth(150);
+        columnModel = tableCustomer.getColumnModel();
+        columnModel.getColumn(0).setPreferredWidth(150);
+        columnModel.getColumn(1).setPreferredWidth(150);
+        columnModel.getColumn(2).setPreferredWidth(150);
+        columnModel.getColumn(3).setPreferredWidth(150);
 
 
         
@@ -98,14 +96,14 @@ public class ManageCustomer extends JPanel implements ActionListener, DocumentLi
        
         right = new JPanel();
         
-        setUiAddProduct();
-        setUiEditProduct();
+        setUiAddCustomer();
+        setUiEditCustomer();
        
         add(right, BorderLayout.CENTER);
     }
 
 
-    public void setUiAddProduct(){
+    public void setUiAddCustomer(){
       
         labelTitleAdd = new JLabel(":                                                                                        Add Customer                                                                                       :");
         right.add(labelTitleAdd);
@@ -146,7 +144,7 @@ public class ManageCustomer extends JPanel implements ActionListener, DocumentLi
 
     }
 
-    public void setUiEditProduct(){
+    public void setUiEditCustomer(){
          
          labelTileEdit = new JLabel(":                                                                                        Edit Customer                                                                                       :");
          right.add(labelTileEdit);

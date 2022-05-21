@@ -14,24 +14,24 @@ import java.time.LocalDate;
 
 public class ReportPorduct extends JPanel implements ActionListener, DocumentListener, ListSelectionListener {
 
-    JTextField textField, dateTf, totalOrderTf;
-    JLabel searchLb, dateLabel, totalOrderLb;
-    JTable  tableProduct;
-    TableRowSorter<TableModel> sort;
-    TableColumnModel columnModelPro;
-    DefaultTableModel modelProduct ;
-    JScrollPane scrollItem, scrollOrder;
-    FileOrder fileOrder;
-    DecimalFormat fm2;
-    JPanel topBar;
-    JComboBox<String> comDay;
-    JButton selectDateBtn, exBtn;
-    ExReprort exReprort;
+    private JTextField textField, dateTf, totalOrderTf;
+    private JLabel searchLb, dateLabel, totalOrderLb;
+    private JTable  tableProduct;
+    private TableRowSorter<TableModel> sort;
+    private TableColumnModel columnModel;
+    private DefaultTableModel modelProduct ;
+    private JScrollPane  scrollProduct;
+    private DecimalFormat fm2;
+    private JPanel topBar;
+    private JComboBox<String> comDay;
+    private JButton selectDateBtn, exBtn;
+    private FileOrder fileOrder;
+    private ExReport exReport;
     ReportPorduct(){
         super(new BorderLayout(),true);
         fm2 = new DecimalFormat("#,##0.00");
         fileOrder = new FileOrder();
-        exReprort = new ExReprort();
+        exReport = new ExReport();
         setTopBar();
         settableProduct();
         
@@ -84,13 +84,13 @@ public class ReportPorduct extends JPanel implements ActionListener, DocumentLis
         modelProduct = (DefaultTableModel) tableProduct.getModel();
         refresh();
 
-        columnModelPro = tableProduct.getColumnModel();        
-        columnModelPro.getColumn(0).setPreferredWidth(100);
-        columnModelPro.getColumn(1).setPreferredWidth(200);
-        columnModelPro.getColumn(2).setPreferredWidth(200);
-        columnModelPro.getColumn(3).setPreferredWidth(200);
-        columnModelPro.getColumn(4).setPreferredWidth(200);
-        columnModelPro.getColumn(5).setPreferredWidth(200);
+        columnModel = tableProduct.getColumnModel();        
+        columnModel.getColumn(0).setPreferredWidth(100);
+        columnModel.getColumn(1).setPreferredWidth(200);
+        columnModel.getColumn(2).setPreferredWidth(200);
+        columnModel.getColumn(3).setPreferredWidth(200);
+        columnModel.getColumn(4).setPreferredWidth(200);
+        columnModel.getColumn(5).setPreferredWidth(200);
 
     
         sort = new TableRowSorter<>(tableProduct.getModel());
@@ -99,20 +99,20 @@ public class ReportPorduct extends JPanel implements ActionListener, DocumentLis
         cellSelectionModel.addListSelectionListener(this);
         tableProduct.setRowSorter(sort); 
 
-        scrollOrder = new JScrollPane(tableProduct);
-        add(scrollOrder, BorderLayout.CENTER);
+        scrollProduct = new JScrollPane(tableProduct);
+        add(scrollProduct, BorderLayout.CENTER);
         
     }
 
 
 
     public void refresh(){
-       String orderData[][] = fileOrder.getProductSale(String.valueOf(LocalDate.now()));
+       String productData[][] = fileOrder.getProductSale(String.valueOf(LocalDate.now()));
        modelProduct.setRowCount(0);
        float total = 0;
-       for (int i = 0; i < orderData.length; i++){
-            total += Float.valueOf(orderData[i][4]);
-            modelProduct.addRow(new Object[]{orderData[i][0],orderData[i][1], orderData[i][2],String.valueOf(fm2.format(Float.parseFloat(orderData[i][3]))), String.valueOf(fm2.format(Float.parseFloat(orderData[i][4]))), (orderData[i][5])});     
+       for (int i = 0; i < productData.length; i++){
+            total += Float.valueOf(productData[i][4]);
+            modelProduct.addRow(new Object[]{productData[i][0],productData[i][1], productData[i][2],String.valueOf(fm2.format(Float.parseFloat(productData[i][3]))), String.valueOf(fm2.format(Float.parseFloat(productData[i][4]))), (productData[i][5])});     
        }
 
        totalOrderTf.setText(String.valueOf(fm2.format(total)));
@@ -123,13 +123,13 @@ public class ReportPorduct extends JPanel implements ActionListener, DocumentLis
        
     }
     
-    public void upDateTabelOrder(){
+    public void updateTabelProduct(){
        modelProduct.setRowCount(0);
-        String orderData[][] = fileOrder.getProductSale(dateTf.getText());
+        String productData[][] = fileOrder.getProductSale(dateTf.getText());
         float total = 0;
-        for (int i = 0; i < orderData.length; i++){
-            total += Float.valueOf(orderData[i][4]);
-            modelProduct.addRow(new Object[]{orderData[i][0],orderData[i][1], orderData[i][2],String.valueOf(fm2.format(Float.parseFloat(orderData[i][3]))), String.valueOf(fm2.format(Float.parseFloat(orderData[i][4]))), (orderData[i][5])});          
+        for (int i = 0; i < productData.length; i++){
+            total += Float.valueOf(productData[i][4]);
+            modelProduct.addRow(new Object[]{productData[i][0],productData[i][1], productData[i][2],String.valueOf(fm2.format(Float.parseFloat(productData[i][3]))), String.valueOf(fm2.format(Float.parseFloat(productData[i][4]))), (productData[i][5])});          
  
        }
        totalOrderTf.setText(String.valueOf(fm2.format(total)));
@@ -144,11 +144,11 @@ public class ReportPorduct extends JPanel implements ActionListener, DocumentLis
         // TODO Auto-generated method stub
         if(e.getSource() == selectDateBtn){
             dateTf.setText((String)comDay.getSelectedItem());
-            upDateTabelOrder();
+            updateTabelProduct();
         }else if(e.getSource() == exBtn){
-            exReprort.setDate(dateTf.getText());
-            exReprort.setFile();
-            exReprort.writeReportProduct();
+            exReport.setDate(dateTf.getText());
+            exReport.setFile();
+            exReport.writeReportProduct();
             JOptionPane.showMessageDialog(null, "Export Success", "Message", JOptionPane.INFORMATION_MESSAGE);
 
         }

@@ -12,26 +12,26 @@ import java.awt.event.*;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 
-public class Report extends JPanel implements ActionListener, DocumentListener, ListSelectionListener {
+public class ReportOrderDay extends JPanel implements ActionListener, DocumentListener, ListSelectionListener {
 
-    JTextField textField, dateTf, totalOrderTf, sallerTf, customerTf, totalItemTf, orderDataTf;
-    JLabel searchLb, dateLabel, totalOrderLb, orderItem, sallerlb, customerLb, totalItemLb, orderDateLb;
-    JTable  tableOrder, tableItem;
-    TableRowSorter<TableModel> sort;
-    TableColumnModel columnModelPro, columnModelOrder;
-    DefaultTableModel modelOrder, modelItem;
-    JScrollPane scrollItem, scrollOrder;
-    FileOrder fileOrder;
-    DecimalFormat fm2;
-    JPanel topBar, right;
-    JComboBox<String> comDay;
-    JButton selectDateBtn, exBtn;
-    ExReprort exReprort;
-    Report(){
+    private JTextField textField, dateTf, totalOrderTf, sallerTf, customerTf, totalItemTf, orderDataTf;
+    private JLabel searchLb, dateLabel, totalOrderLb, orderItem, sallerlb, customerLb, totalItemLb, orderDateLb;
+    private JTable  tableOrder, tableItem;
+    private TableRowSorter<TableModel> sort;
+    private TableColumnModel columnModel;
+    private DefaultTableModel modelOrder, modelItem;
+    private JScrollPane scrollItem, scrollOrder;
+    private DecimalFormat fm2;
+    private JPanel topBar, right;
+    private JComboBox<String> comDay;
+    private JButton selectDateBtn, exBtn;
+    private FileOrder fileOrder;
+    private ExReport exReport;
+    ReportOrderDay(){
         super(new BorderLayout(),true);
         fm2 = new DecimalFormat("#,##0.00");
         fileOrder = new FileOrder();
-        exReprort = new ExReprort();
+        exReport = new ExReport();
         setTopBar();
         setRight();
         setTableOrder();
@@ -85,12 +85,12 @@ public class Report extends JPanel implements ActionListener, DocumentListener, 
         modelOrder = (DefaultTableModel) tableOrder.getModel();
         refresh();
 
-        columnModelPro = tableOrder.getColumnModel();        
-        columnModelPro.getColumn(0).setPreferredWidth(100);
-        columnModelPro.getColumn(1).setPreferredWidth(400);
-        columnModelPro.getColumn(2).setPreferredWidth(400);
-        columnModelPro.getColumn(3).setPreferredWidth(400);
-        columnModelPro.getColumn(4).setPreferredWidth(400);
+        columnModel = tableOrder.getColumnModel();        
+        columnModel.getColumn(0).setPreferredWidth(100);
+        columnModel.getColumn(1).setPreferredWidth(400);
+        columnModel.getColumn(2).setPreferredWidth(400);
+        columnModel.getColumn(3).setPreferredWidth(400);
+        columnModel.getColumn(4).setPreferredWidth(400);
     
         sort = new TableRowSorter<>(tableOrder.getModel());
         ListSelectionModel cellSelectionModel = tableOrder.getSelectionModel();
@@ -184,7 +184,7 @@ public class Report extends JPanel implements ActionListener, DocumentListener, 
     }
 
 
-    public void upDateTabelOrderItem(int id) {
+    public void updateTabelOrderItem(int id) {
         String item[][] = fileOrder.getOrderItem(id);
         modelItem.setRowCount(0);
         for (int i = 0; i < item.length; i++){
@@ -209,9 +209,9 @@ public class Report extends JPanel implements ActionListener, DocumentListener, 
             dateTf.setText((String)comDay.getSelectedItem());
             upDateTabelOrder();
         }else if(e.getSource() == exBtn){
-            exReprort.setDate(dateTf.getText());
-            exReprort.setFile();
-            exReprort.writeReportOrder();
+            exReport.setDate(dateTf.getText());
+            exReport.setFile();
+            exReport.writeReportOrder();
             JOptionPane.showMessageDialog(null, "Export Success", "Message", JOptionPane.INFORMATION_MESSAGE);
 
         }
@@ -230,7 +230,7 @@ public class Report extends JPanel implements ActionListener, DocumentListener, 
             orderDataTf.setText((String) tableOrder.getValueAt(selectedRow[i], 4));
             idOrder = Integer.valueOf((String) tableOrder.getValueAt(selectedRow[i], 0));
         }
-        upDateTabelOrderItem(idOrder);
+        updateTabelOrderItem(idOrder);
     }
 
     @Override

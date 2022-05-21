@@ -13,23 +13,19 @@ import java.awt.event.*;
 
 public class ManageSaller extends JPanel implements ActionListener, DocumentListener, ListSelectionListener {
 
-    JTable  tableCustomer;
-    JScrollPane scrollPro, scrollOrder;
-    JTextField textField, idTf, nameTf, phoneTf, emailTf, totalTf;
-    JTextField  idETf, nameETf, phoneETf, emailETf;
-
-    TableRowSorter<TableModel> sort;
-    TableColumnModel columnModelPro, columnModelOrder;
-    JLabel labelSearch,idLb, nameLb, emailLb, phoneLb, labelTotal, labelTileEdit, labelTitleAdd;
-    JLabel idELb, labelEName, emailELb, phoneELb;
-
-    JPanel topBar, right, bottom;
-    JButton insetBtn, delBtn, editBtn, cancelBtn;
-    DefaultTableModel modelCustomer;
-    JComboBox<String> comCus;
-
-    FileSaller fileSaller;
-    Saller saller;
+    private JTable  tableSaller;
+    private JScrollPane scroll;
+    private JTextField textField, idTf, nameTf, phoneTf, emailTf;
+    private JTextField  idETf, nameETf, phoneETf, emailETf;
+    private TableRowSorter<TableModel> sort;
+    private TableColumnModel columnModel;
+    private JLabel labelSearch,idLb, nameLb, emailLb, phoneLb, labelTileEdit, labelTitleAdd;
+    private JLabel idELb, labelEName, emailELb, phoneELb;
+    private JPanel topBar, right;
+    private JButton insetBtn, delBtn, editBtn, cancelBtn;
+    private DefaultTableModel modelSaller;
+    private FileSaller fileSaller;
+    private Saller saller;
     ManageSaller(){
         super(new BorderLayout(),true);
         setPreferredSize( new Dimension(1000, 600));
@@ -37,7 +33,7 @@ public class ManageSaller extends JPanel implements ActionListener, DocumentList
         fileSaller = new FileSaller();
         setTopBar();
         setRight();
-        settableCustomer();
+        settableSaller();
     }
 
     public void setTopBar(){
@@ -53,39 +49,39 @@ public class ManageSaller extends JPanel implements ActionListener, DocumentList
         add(topBar, BorderLayout.NORTH);
     }
 
-    public void settableCustomer() {
+    public void settableSaller() {
         
         String header[] = { "ID", "Name", "Email" ,  "Phone" };
-        tableCustomer = new JTable(new DefaultTableModel(header,0));
-        modelCustomer = (DefaultTableModel) tableCustomer.getModel();
+        tableSaller = new JTable(new DefaultTableModel(header,0));
+        modelSaller = (DefaultTableModel) tableSaller.getModel();
         refresh();
         
-        columnModelPro = tableCustomer.getColumnModel();
-        columnModelPro.getColumn(0).setPreferredWidth(150);
-        columnModelPro.getColumn(1).setPreferredWidth(150);
-        columnModelPro.getColumn(2).setPreferredWidth(150);
-        columnModelPro.getColumn(3).setPreferredWidth(150);
+        columnModel = tableSaller.getColumnModel();
+        columnModel.getColumn(0).setPreferredWidth(150);
+        columnModel.getColumn(1).setPreferredWidth(150);
+        columnModel.getColumn(2).setPreferredWidth(150);
+        columnModel.getColumn(3).setPreferredWidth(150);
 
 
         
-        sort = new TableRowSorter<>(tableCustomer.getModel());
-        ListSelectionModel cellSelectionModel = tableCustomer.getSelectionModel();
+        sort = new TableRowSorter<>(tableSaller.getModel());
+        ListSelectionModel cellSelectionModel = tableSaller.getSelectionModel();
         cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
      
         cellSelectionModel.addListSelectionListener(this);
-        tableCustomer.setRowSorter(sort);
+        tableSaller.setRowSorter(sort);
         
-        scrollPro = new JScrollPane(tableCustomer);
-        scrollPro.setBounds(10, 10, 50, 100);
-        add(scrollPro,  BorderLayout.WEST);
+        scroll = new JScrollPane(tableSaller);
+        scroll.setBounds(10, 10, 50, 100);
+        add(scroll,  BorderLayout.WEST);
     }
 
     public void refresh(){
        
-        modelCustomer.setNumRows(0);
+        modelSaller.setNumRows(0);
         String productData[][] = fileSaller.getSaller();
         for (int i = 0; i < productData.length; i++){
-            modelCustomer.addRow(new Object[]{productData[i][0],productData[i][1],productData[i][2],productData[i][3]});
+            modelSaller.addRow(new Object[]{productData[i][0],productData[i][1],productData[i][2],productData[i][3]});
         } 
         int sId = fileSaller.getLastId()+1;
         idTf.setText(String.valueOf(sId));
@@ -96,14 +92,14 @@ public class ManageSaller extends JPanel implements ActionListener, DocumentList
     public void setRight(){
         
         right = new JPanel();
-        setUiAddProduct();
-        setUiEditProduct();
+        setUiAddSaller();
+        setUiEditSaller();
         
         add(right, BorderLayout.CENTER);
     }
 
 
-    public void setUiAddProduct(){
+    public void setUiAddSaller(){
       
         labelTitleAdd = new JLabel(":                                                                                             Add Saller                                                                                            :");
         right.add(labelTitleAdd);
@@ -143,7 +139,7 @@ public class ManageSaller extends JPanel implements ActionListener, DocumentList
 
     }
 
-    public void setUiEditProduct(){
+    public void setUiEditSaller(){
         
          labelTileEdit = new JLabel(":                                                                                            Edit Saller                                                                                            :");
          right.add(labelTileEdit);
@@ -320,14 +316,14 @@ public class ManageSaller extends JPanel implements ActionListener, DocumentList
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
-        int[] selectedRow = tableCustomer.getSelectedRows();
+        int[] selectedRow = tableSaller.getSelectedRows();
         
         for (int i = 0; i < selectedRow.length; i++) {
           
-            idETf.setText((String) tableCustomer.getValueAt(selectedRow[i], 0));
-            nameETf.setText((String) tableCustomer.getValueAt(selectedRow[i], 1));
-            emailETf.setText((String) tableCustomer.getValueAt(selectedRow[i], 2));
-            phoneETf.setText((String) tableCustomer.getValueAt(selectedRow[i], 3));
+            idETf.setText((String) tableSaller.getValueAt(selectedRow[i], 0));
+            nameETf.setText((String) tableSaller.getValueAt(selectedRow[i], 1));
+            emailETf.setText((String) tableSaller.getValueAt(selectedRow[i], 2));
+            phoneETf.setText((String) tableSaller.getValueAt(selectedRow[i], 3));
         }
      
     } 
