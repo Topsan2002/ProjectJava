@@ -87,6 +87,8 @@ public class FileProduct {
               //use loop while check line in file don't null and set s1 = this line 
               while ((s1 = readerPro.readLine()) != null){
                 //use split for sub string and add it to array variable
+                // 1,50,450
+                // product[0] = 1;
                 String product[] = s1.split(",");
                 //use for loop to add data to array variable 2d 
                     for(int j = 0; j < 4; j++){
@@ -140,6 +142,7 @@ public class FileProduct {
         StringBuffer inputBuffer = new StringBuffer();
         // create line variable for add line data in while lop
         String line;
+        // +="fdskl;"
         while ((line = file.readLine()) != null) {
           //use split for sub string and add it to array variable
           String data[] = line.split(",");
@@ -153,7 +156,7 @@ public class FileProduct {
           inputBuffer.append('\n');
         }
         file.close();
-                
+              
         // write the new string with the replaced line OVER the same file
         FileOutputStream fileOut = new FileOutputStream(fileProduct);
         fileOut.write(inputBuffer.toString().getBytes());

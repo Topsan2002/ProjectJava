@@ -31,17 +31,17 @@ public class Order {
     public void setOrderId(int id){
         this.id = id;
     }
-    public void setCustomerId(int customerId){
-        this.customerId = customerId;
+    public void setCustomerId(int id){
+        this.customerId = id;
     }
-    public void setCustomerName(String customerName){
-        this.customerName = customerName;
+    public void setCustomerName(String name){
+        this.customerName = name;
     }
-    public void setSallerId(int sallerId){
-        this.sallerId = sallerId;
+    public void setSallerId(int id){
+        this.sallerId = id;
     }
-    public void setSallerName(String sallerName){
-        this.sallerName = sallerName;
+    public void setSallerName(String name){
+        this.sallerName = name;
     }
     public void setTotalPrice(float total){
         this.totalPrice = total;

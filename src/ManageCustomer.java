@@ -251,12 +251,12 @@ public class ManageCustomer extends JPanel implements ActionListener, DocumentLi
 
             }catch(Exception ex){
              
-                JOptionPane.showMessageDialog(null, "Id, amount is Integer Number\nPrice is Float Number", "Message", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Please Input All Data !!!", "Message", JOptionPane.ERROR_MESSAGE);
 
             }
        
         }else if(e.getSource()  == editBtn){
-            try{
+            if(!nameETf.getText().equals("") && !emailETf.getText().equals("") && !phoneETf.getText().equals("")) {
                
                 int id = Integer.parseInt(idETf.getText());
                 customer.setId(id);
@@ -274,9 +274,9 @@ public class ManageCustomer extends JPanel implements ActionListener, DocumentLi
                 }
 
 
-            }catch(Exception ex){
+            }else{
                
-                JOptionPane.showMessageDialog(null, "Id, amount is Integer Number\nPrice is Float Number", "Message", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Please Input All Data !!!", "Message", JOptionPane.ERROR_MESSAGE);
 
             }
       

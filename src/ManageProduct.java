@@ -380,7 +380,7 @@ public class ManageProduct extends JPanel implements ActionListener, DocumentLis
         //use for select row in table and insert to textfield edit
         //add number row select to variable
         int[] selectedRow = tableProduct.getSelectedRows();
-        
+        // selectedRow[0] = 1;
         //user for loop for set textField
         for (int i = 0; i < selectedRow.length; i++) {
             //set textField data form row select

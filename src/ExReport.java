@@ -59,7 +59,7 @@ public class ExReport {
                 total += Float.valueOf(orderData[i][5]);
                 line += "Saller : " + orderData[i][4] +"\n";
                 line += "Customer : " + orderData[i][2] +"\n";
-                line += "Order Total : " + orderData[i][5] +"\n";
+                line += "Order Total : " + fm2.format(Float.parseFloat(orderData[i][5]))  +"\n";
                 line += "================================ Order Item   ===================================\n";
                 String itemData[][] = orderFile.getOrderItem(Integer.valueOf(orderData[i][0]));
                 line += "ID\t\t\tName\t\t\t\t\t\tAmount\t\tTotal\n";
@@ -68,11 +68,11 @@ public class ExReport {
                     line +=   otherName(itemData[j][3])+"\t";
                     line +=   nameProduct(itemData[j][0])+"\t";
                     line +=   otherName(itemData[j][1])+"\t";
-                    line +=   otherName(itemData[j][2])+"\t";
+                    line +=   otherName( fm2.format(Float.parseFloat(itemData[j][2])))+"\t";
 
                     line += "\n";
                 }
-            line += "=================================================================================\n\n";
+            line += "=================================================================================\n";
 
             }
 

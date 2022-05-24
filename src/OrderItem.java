@@ -25,14 +25,14 @@ public class OrderItem {
     public void setId(int id) {
         this.id = id;
     }
-    public void setOrderId(int orderId){
-        this.orderId = orderId;
+    public void setOrderId(int id){
+        this.orderId = id;
     }
-    public void setProductId(int productId){
-        this.productId = productId;
+    public void setProductId(int id){
+        this.productId = id;
     }
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setProductName(String name) {
+        this.productName = name;
     }
     public void setAmount(int amount) {
         this.amount = amount;

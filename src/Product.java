@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 
 public class Product {
     private int id;
- 
     private String name;
     private int amount;
     private float price;

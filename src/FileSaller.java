@@ -133,7 +133,7 @@ public class FileSaller {
     }
 
     
-    public boolean editSaller(int id, String customer){
+    public boolean editSaller(int id, String saller){
       try {
         BufferedReader file = new BufferedReader(new FileReader(fileSaller));
         StringBuffer inputBuffer = new StringBuffer();
@@ -143,7 +143,7 @@ public class FileSaller {
           String data[] = line.split(",");
           
           if(Integer.parseInt(data[0]) == id){
-              line = customer;  
+              line = saller;  
           }
           
           inputBuffer.append(line);

@@ -112,7 +112,7 @@ public class Home extends JPanel implements ActionListener, DocumentListener, Li
         modelProduct.setNumRows(0);
         String productData[][] = file.getProduct();
         for (int i = 0; i < productData.length; i++){
-             modelProduct.addRow(new Object[]{productData[i][0],productData[i][1],String.valueOf(fm2.format(Float.parseFloat(productData[i][3])))});     
+             modelProduct.addRow(new Object[]{productData[i][0],productData[i][1],String.valueOf((Float.parseFloat(productData[i][3])))});     
         }
 
         setCombobox();
@@ -265,14 +265,17 @@ public class Home extends JPanel implements ActionListener, DocumentListener, Li
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
         if(e.getSource() == insetBtn){
+        
             
             try{
                 int amTf = Integer.parseInt(amountTf.getText());
-                float prTf = Float.parseFloat(priceTf.getText());
-                float total = amTf * prTf;
-                modelOrder.addRow(new Object[]{idTf.getText(),nameTf.getText(),amountTf.getText(),String.valueOf(fm2.format(total))});
+              
+                var total = amTf * Float.valueOf(priceTf.getText());
+              
+                modelOrder.addRow(new Object[]{idTf.getText(),nameTf.getText(),amountTf.getText(),String.valueOf((total))});
                 setTotal();        
             }catch(Exception ex){
+              
                 JOptionPane.showMessageDialog(null, "Amount is Integer Number !!!","Message",JOptionPane.ERROR_MESSAGE);
             }
            
@@ -321,7 +324,15 @@ public class Home extends JPanel implements ActionListener, DocumentListener, Li
             int customerId = Integer.parseInt(customer[0]);
             String customerName = customer[1];
             int orderId = fileOrder.getOrderLastId() + 1;
-            Float totalPrice = Float.parseFloat(totalTf.getText());
+
+
+            String totalSa[] = totalTf.getText().split(",");
+            String totalS = "";
+            for(int i = 0; i < totalSa.length; i++){
+                totalS += totalSa[i];
+            }
+
+            Float totalPrice = Float.parseFloat(totalS);
             if(tableOrder.getRowCount() == 0){
                 JOptionPane.showMessageDialog(null, "You Don't have any orders", "Message", JOptionPane.ERROR_MESSAGE);
 
@@ -404,7 +415,8 @@ public class Home extends JPanel implements ActionListener, DocumentListener, Li
     public void setTotal(){
         float total = 0;
         for(int i = 0; i < tableOrder.getRowCount(); i++){
-            float price = Float.valueOf((String)tableOrder.getValueAt(i, 3));
+            
+            float price = Float.valueOf(String.valueOf(tableOrder.getValueAt(i, 3)));
             total +=   price;
         }
         totalTf.setText(String.valueOf(fm2.format(total)));

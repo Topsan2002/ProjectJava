@@ -52,7 +52,7 @@ public class ManageSaller extends JPanel implements ActionListener, DocumentList
     public void settableSaller() {
         
         String header[] = { "ID", "Name", "Email" ,  "Phone" };
-        tableSaller = new JTable(new DefaultTableModel(header,0));
+        tableSaller = new JTable(new DefaultTableModel(header,  0));
         modelSaller = (DefaultTableModel) tableSaller.getModel();
         refresh();
         
@@ -130,7 +130,7 @@ public class ManageSaller extends JPanel implements ActionListener, DocumentList
         right.add(emailLb);
         right.add(emailTf);
 
-        insetBtn = new JButton("Add Customer");
+        insetBtn = new JButton("Add Saller");
         insetBtn.addActionListener(this);
         right.add(insetBtn);
         cancelBtn = new JButton("Cancel");
@@ -169,7 +169,7 @@ public class ManageSaller extends JPanel implements ActionListener, DocumentList
          right.add(emailELb);
          right.add(emailETf);
     
-         editBtn = new JButton("Edit Customer");
+         editBtn = new JButton("Edit Saller");
          editBtn.addActionListener(this);
          right.add(editBtn);
          
@@ -226,7 +226,7 @@ public class ManageSaller extends JPanel implements ActionListener, DocumentList
 
        
         }else if(e.getSource() == delBtn){
-            try{
+            if(!nameETf.getText().equals("") && !emailETf.getText().equals("") && !phoneETf.getText().equals("")) {
                 
                 int id = Integer.parseInt(idETf.getText());
                 saller.setId(id);
@@ -244,14 +244,14 @@ public class ManageSaller extends JPanel implements ActionListener, DocumentList
                 }
 
 
-            }catch(Exception ex){
+            }else{
              
-                JOptionPane.showMessageDialog(null, "Id, amount is Integer Number\nPrice is Float Number", "Message", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Please Input All Data !!!", "Message", JOptionPane.ERROR_MESSAGE);
 
             }
        
         }else if(e.getSource()  == editBtn){
-            try{
+            if(!nameETf.getText().equals("") && !emailETf.getText().equals("") && !phoneETf.getText().equals("")) {
                 
                 int id = Integer.parseInt(idETf.getText());
                 saller.setId(id);
@@ -269,9 +269,9 @@ public class ManageSaller extends JPanel implements ActionListener, DocumentList
                 }
 
 
-            }catch(Exception ex){
+            }else{
                 
-                JOptionPane.showMessageDialog(null, "Id, amount is Integer Number\nPrice is Float Number", "Message", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Please Input All Data !!!", "Message", JOptionPane.ERROR_MESSAGE);
 
             }
         //check button click cancel
